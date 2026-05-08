@@ -1,15 +1,21 @@
 import PyPDF2
 
 def read_file(path):
-    if path.lower().endswith(".txt"):
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    elif path.lower().endswith(".pdf"):
+
+    if path.endswith(".txt"):
+        with open(path, "r", encoding="utf-8") as file:
+            return file.read()
+
+    elif path.endswith(".pdf"):
         text = ""
-        with open(path, "rb") as f:
-            reader = PyPDF2.PdfReader(f)
+
+        with open(path, "rb") as file:
+            reader = PyPDF2.PdfReader(file)
+
             for page in reader.pages:
-                text += page.extract_text() + "\n"
+                text += page.extract_text()
+
         return text
+
     else:
-        raise ValueError("Unsupported file type. Use .txt or .pdf")
+        raise ValueError("Unsupported file type")

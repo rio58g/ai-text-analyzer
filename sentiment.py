@@ -3,13 +3,13 @@ from openai import OpenAI
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def extract_key_points(text):
+def analyze_sentiment(text):
     response = client.chat.completions.create(
         model="gpt-4.1-mini",
         messages=[
             {
                 "role": "system",
-                "content": "Extract key points from the text."
+                "content": "Analyze sentiment as positive, negative, or neutral."
             },
             {
                 "role": "user",
@@ -18,6 +18,4 @@ def extract_key_points(text):
         ]
     )
 
-    content = response.choices[0].message.content.strip()
-
-    return content.split("\n")
+    return response.choices[0].message.content.strip()
